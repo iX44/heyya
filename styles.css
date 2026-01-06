@@ -7,8 +7,8 @@
 
   /* glass */
   --line:rgba(255,255,255,.12);
-  --glassA:rgba(255,255,255,.070);
-  --glassB:rgba(255,255,255,.040);
+  --glassA:rgba(255,255,255,.10);
+  --glassB:rgba(255,255,255,.06);
 
   /* shadows */
   --shadow: 0 22px 70px rgba(0,0,0,.55);
