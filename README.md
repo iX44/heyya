@@ -1,1 +1,2 @@
-# heyya
+# ABOUT ME PAGE
+IF U LIKE IT , A STAR IS GOOD , TY
