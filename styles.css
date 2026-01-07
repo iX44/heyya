@@ -584,6 +584,9 @@ input[type="range"]::-webkit-slider-thumb{
 body.subtle-glow .card{
   box-shadow: var(--shadow), 0 0 28px rgba(var(--accent), .06);
 }
+.music__logo{
+  display: none;
+}
 
 /* ===== Responsive ===== */
 @media (max-width: 980px){
