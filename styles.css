@@ -10,7 +10,7 @@
   --txt:#eef2ff;
   --muted:rgba(235,240,255,.70);
   
-  --glass-blur: 18px;
+  --glass-blur: 10px;
   
   /* glass */
   --line:rgba(255,255,255,.12);
