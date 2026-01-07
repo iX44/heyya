@@ -2,7 +2,7 @@
   --bg0:#060716;
   --bg1:#070818;
   --bg-image: url("./assets/bg.gif");
-  
+
   --bg-blur: 12px;          /* 0px = không blur */
   --bg-bright: .55;
   --bg-saturate: 1.05;
@@ -31,10 +31,7 @@ body{
   margin:0;
   font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color:var(--txt);
-  background:
-    radial-gradient(1200px 800px at 60% 18%, rgba(90,130,255,.22), transparent 60%),
-    radial-gradient(900px 700px at 22% 60%, rgba(255,0,200,.18), transparent 55%),
-    linear-gradient(180deg, var(--bg0), var(--bg1));
+  background: transparent;
   overflow-x:hidden;
 }
 
@@ -537,7 +534,7 @@ input[type="range"]::-webkit-slider-thumb{
     saturate(var(--bg-saturate));
   transform: scale(1.08);
   opacity: 1;                /* ĐỪNG giảm opacity lúc debug */
-  z-index: -1;               /* QUAN TRỌNG: nằm SAU glow */
+  z-index: 0;               /* QUAN TRỌNG: nằm SAU glow */
 
 }
 .bg__glow{
