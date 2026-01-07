@@ -1,7 +1,8 @@
 :root{
   --bg0:#060716;
   --bg1:#070818;
-
+  --bg-image: url("./assets/bg.gif");
+  
   --bg-blur: 12px;          /* 0px = không blur */
   --bg-bright: .55;
   --bg-saturate: 1.05;
@@ -511,10 +512,12 @@ input[type="range"]::-webkit-slider-thumb{
 
 /* ===== Background ===== */
 .bg{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;   /* QUAN TRỌNG */
+  overflow: hidden;
 }
 .bg__glow,
 .bg__vignette,
@@ -524,17 +527,18 @@ input[type="range"]::-webkit-slider-thumb{
 }
 /* GIF background layer */
 .bg::before{
-content:"";
-  position:absolute;
-  inset:0;
+  content: "";
+  position: absolute;
+  inset: -6%;
   background: var(--bg-image) center / cover no-repeat;
   filter:
     blur(var(--bg-blur))
     brightness(var(--bg-bright))
     saturate(var(--bg-saturate));
-  transform: scale(1.06);
-  opacity: .9;
-  z-index: 0;
+  transform: scale(1.08);
+  opacity: 1;                /* ĐỪNG giảm opacity lúc debug */
+  z-index: -1;               /* QUAN TRỌNG: nằm SAU glow */
+
 }
 .bg__glow{
   position:absolute;
