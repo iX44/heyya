@@ -3,7 +3,7 @@
   --bg1:#070818;
   --bg-image: url("./assets/bg.gif");
 
-  --bg-blur: 12px;          /* 0px = không blur */
+  --bg-blur: 0px;          /* 0px = không blur */
   --bg-bright: .55;
   --bg-saturate: 1.05;
   
