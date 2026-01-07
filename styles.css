@@ -9,7 +9,9 @@
   
   --txt:#eef2ff;
   --muted:rgba(235,240,255,.70);
-
+  
+  --glass-blur: 18px;
+  
   /* glass */
   --line:rgba(255,255,255,.12);
   --glassA:rgba(255,255,255,.045);
@@ -133,11 +135,10 @@ button, input{ font:inherit; color:inherit; }
   content:"";
   position:absolute;
   inset:0;
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   pointer-events:none;
 }
-
 .card__inner{
   position:relative;
   z-index: 1;
