@@ -131,8 +131,8 @@ button, input{ font:inherit; color:inherit; }
   content:"";
   position:absolute;
   inset:0;
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
   pointer-events:none;
 }
 
