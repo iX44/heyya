@@ -2,6 +2,10 @@
   --bg0:#060716;
   --bg1:#070818;
 
+  --bg-blur: 0px;          /* 0px = không blur */
+  --bg-bright: .55;
+  --bg-saturate: 1.05;
+  
   --txt:#eef2ff;
   --muted:rgba(235,240,255,.70);
 
