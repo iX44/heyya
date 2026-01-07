@@ -524,11 +524,14 @@ input[type="range"]::-webkit-slider-thumb{
 }
 /* GIF background layer */
 .bg::before{
-  content:"";
+content:"";
   position:absolute;
   inset:0;
-  background: url("./assets/bg.gif") center / cover no-repeat;
-  filter: blur(8px) brightness(.55) saturate(1.05);
+  background: var(--bg-image) center / cover no-repeat;
+  filter:
+    blur(var(--bg-blur))
+    brightness(var(--bg-bright))
+    saturate(var(--bg-saturate));
   transform: scale(1.06);
   opacity: .9;
   z-index: 0;
