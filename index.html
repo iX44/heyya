@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="vi">
-  <head>
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="iX4 — personal hub" />
   <title>iX4 — About</title>
-
   <link rel="icon" href="./assets/avatar.jpg" />
   <link rel="stylesheet" href="./styles.css" />
-
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +14,6 @@
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Sora:wght@600;700;800&display=swap"
     rel="stylesheet"
   />
-
   <!-- Icons -->
   <link
     rel="stylesheet"
@@ -24,172 +22,188 @@
     referrerpolicy="no-referrer"
   />
 </head>
+<body>
 
-  <body>
-    <canvas id="snow" aria-hidden="true"></canvas>
+  <!-- =====================
+       SPLASH SCREEN
+       Customize:
+         - Change the name text in #splash__name
+         - Change the hint text in #splash__hint
+         - Change the badge text inside #splash__badge
+         - Remove the <img> line below if you don't want the avatar shown
+       ===================== -->
+  <div id="splash" role="button" aria-label="Click to enter">
+    <!-- Avatar (delete this line to hide it) -->
+    <img id="splash__avatar" src="./assets/avatar.jpg" alt="iX4"
+         onerror="this.style.display='none'" />
 
-    <div class="bg" aria-hidden="true">
-      <div class="bg__glow bg__glow--a"></div>
-      <div class="bg__glow bg__glow--b"></div>
-      <div class="bg__glow bg__glow--c"></div>
-      <div class="bg__vignette"></div>
-      <div class="bg__grain"></div>
+    <!-- Big name -->
+    <div id="splash__name">iX4</div>
+
+    <!-- Music badge -->
+    <div id="splash__badge">
+      <i class="fa-solid fa-music"></i>
+      <span>music autoplay</span>
     </div>
 
-    <main class="wrap">
-      <header class="topbar">
-        <div class="brand">
-          <span class="brand__dot"></span>
-          <span class="brand__name">iX4</span>
-          <span class="brand__tag">personal hub</span>
-        </div>
+    <!-- Click hint -->
+    <div id="splash__hint">click anywhere to enter</div>
+  </div>
+  <!-- end splash -->
 
-        <div class="topbar__actions">
-          <button id="btnGlow" class="chip" type="button" title="Toggle glow">
-            <i class="fa-solid fa-sparkles"></i>
-            <span>Glow</span>
-          </button>
-        </div>
-      </header>
+  <canvas id="snow" aria-hidden="true"></canvas>
 
-      <section class="grid2">
-        <!-- LEFT -->
-        <div class="col">
-          <article class="card card--profile">
-            <div class="card__inner">
-              <div class="profile">
-                <div class="profile__avatarWrap">
-                  <div class="profile__halo"></div>
-                  <img
-                    class="profile__avatar"
-                    src="./assets/avatar.jpg"
-                    alt="Avatar iX4"
-                    onerror="this.src='https://images.unsplash.com/photo-1520975958225-73d1a3c1f061?auto=format&fit=crop&w=300&q=70';"
-                  />
-                  <div class="profile__crown" title="crown">
-                    <i class="fa-solid fa-crown"></i>
+  <div class="bg" aria-hidden="true">
+    <div class="bg__glow bg__glow--a"></div>
+    <div class="bg__glow bg__glow--b"></div>
+    <div class="bg__glow bg__glow--c"></div>
+    <div class="bg__vignette"></div>
+    <div class="bg__grain"></div>
+  </div>
+
+  <main class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand__dot"></span>
+        <span class="brand__name">iX4</span>
+        <span class="brand__tag">personal hub</span>
+      </div>
+      <div class="topbar__actions">
+        <button id="btnGlow" class="chip" type="button" title="Toggle glow">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>Glow</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="grid2">
+      <!-- LEFT -->
+      <div class="col">
+        <article class="card card--profile">
+          <div class="card__inner">
+            <div class="profile">
+              <div class="profile__avatarWrap">
+                <div class="profile__halo"></div>
+                <img
+                  class="profile__avatar"
+                  src="./assets/avatar.jpg"
+                  alt="Avatar iX4"
+                  onerror="this.src='https://images.unsplash.com/photo-1520975958225-73d1a3c1f061?auto=format&fit=crop&w=300&q=70';"
+                />
+                <div class="profile__crown" title="crown">
+                  <i class="fa-solid fa-crown"></i>
+                </div>
+              </div>
+              <h1 class="profile__name">iX4</h1>
+              <p id="bioLine" class="profile__bio"></p>
+              <div class="profile__stats">
+                <div class="stat">
+                  <i class="fa-solid fa-heart"></i>
+                  <span id="statLikes"></span>
+                </div>
+                <div class="stat">
+                  <i class="fa-solid fa-eye"></i>
+                  <span id="statViews"></span>
+                </div>
+              </div>
+              <div class="profile__loc">
+                <i class="fa-solid fa-location-dot"></i>
+                <span id="locLine"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__inner">
+            <div class="sectionHead">
+              <h2 class="sectionTitle">Kỹ năng</h2>
+              <span class="sectionHint">stack</span>
+            </div>
+            <div id="skillsGrid" class="iconGrid" aria-label="Skills"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__inner">
+            <div class="sectionHead">
+              <h2 class="sectionTitle">Game</h2>
+              <span class="sectionHint">currently</span>
+            </div>
+            <div id="gamesGrid" class="iconGrid" aria-label="Games"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__inner">
+            <div class="sectionHead">
+              <h2 class="sectionTitle">Social</h2>
+              <span class="sectionHint">links</span>
+            </div>
+            <div id="socialGrid" class="iconGrid iconGrid--social" aria-label="Social links"></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col">
+        <article class="card">
+          <div class="card__inner">
+            <div class="sectionHead">
+              <h2 class="sectionTitle">Gear</h2>
+              <span class="sectionHint">setup</span>
+            </div>
+            <ul class="kv" id="gearList"></ul>
+          </div>
+        </article>
+
+        <article class="card card--music">
+          <div class="card__inner">
+            <div class="music">
+              <div class="music__head">
+                <div class="music__coverWrap">
+                  <img id="coverImg" class="music__cover" src="./assets/cover.jpg" alt="Cover" />
+                  <div class="music__logo" title="Music">
+                    <i class="fa-solid fa-music"></i>
                   </div>
                 </div>
-
-                <h1 class="profile__name">iX4</h1>
-                <p id="bioLine" class="profile__bio">Developer • Gamer • Gear enjoyer</p>
-
-                <div class="profile__stats">
-                  <div class="stat">
-                    <i class="fa-solid fa-heart"></i>
-                    <span id="statLikes">5,005</span>
-                  </div>
-                  <div class="stat">
-                    <i class="fa-solid fa-eye"></i>
-                    <span id="statViews">10,885</span>
+                <div class="music__meta">
+                  <div id="trackTitle" class="music__title">Loading…</div>
+                  <div id="trackArtist" class="music__artist">—</div>
+                  <div class="music__time">
+                    <span id="curTime">0:00</span>
+                    <span class="sep">/</span>
+                    <span id="durTime">0:00</span>
                   </div>
                 </div>
-
-                <div class="profile__loc">
-                  <i class="fa-solid fa-location-dot"></i>
-                  <span id="locLine">your heart</span>
-                </div>
               </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card__inner">
-              <div class="sectionHead">
-                <h2 class="sectionTitle">Kỹ năng</h2>
-                <span class="sectionHint">stack</span>
+              <canvas id="viz" class="viz" width="1200" height="220" aria-label="Visualizer"></canvas>
+              <div class="music__controls">
+                <button id="btnPrev" class="iconBtn" type="button" title="Prev">
+                  <i class="fa-solid fa-backward-step"></i>
+                </button>
+                <button id="btnPlay" class="playBtn" type="button" title="Play/Pause">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+                <button id="btnNext" class="iconBtn" type="button" title="Next">
+                  <i class="fa-solid fa-forward-step"></i>
+                </button>
               </div>
-              <div id="skillsGrid" class="iconGrid" aria-label="Skills"></div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card__inner">
-              <div class="sectionHead">
-                <h2 class="sectionTitle">Game</h2>
-                <span class="sectionHint">currently</span>
+              <div class="bar">
+                <input id="progress" type="range" min="0" max="1000" value="0" step="1" />
               </div>
-              <div id="gamesGrid" class="iconGrid" aria-label="Games"></div>
+              <audio id="audio" preload="metadata"></audio>
             </div>
-          </article>
+          </div>
+        </article>
+      </div>
+    </section>
 
-          <article class="card">
-            <div class="card__inner">
-              <div class="sectionHead">
-                <h2 class="sectionTitle">Social</h2>
-                <span class="sectionHint">links</span>
-              </div>
-              <div id="socialGrid" class="iconGrid iconGrid--social" aria-label="Social links"></div>
-            </div>
-          </article>
-        </div>
+    <footer class="footer">
+      <span>© 2026 INC Legion. All rights reserved.</span>
+    </footer>
+  </main>
 
-        <!-- RIGHT -->
-        <div class="col">
-          <article class="card">
-            <div class="card__inner">
-              <div class="sectionHead">
-                <h2 class="sectionTitle">Gear</h2>
-                <span class="sectionHint">setup</span>
-              </div>
-              <ul class="kv" id="gearList"></ul>
-            </div>
-          </article>
-
-          <article class="card card--music">
-            <div class="card__inner">
-              <div class="music">
-                <div class="music__head">
-                  <div class="music__coverWrap">
-                    <img id="coverImg" class="music__cover" src="./assets/cover.jpg" alt="Cover" />
-                    <div class="music__logo" title="Music">
-                      <i class="fa-solid fa-music"></i>
-                    </div>
-                  </div>
-
-                  <div class="music__meta">
-                    <div id="trackTitle" class="music__title">Loading…</div>
-                    <div id="trackArtist" class="music__artist">—</div>
-                    <div class="music__time">
-                      <span id="curTime">0:00</span>
-                      <span class="sep">/</span>
-                      <span id="durTime">0:00</span>
-                    </div>
-                  </div>
-                </div>
-
-                <canvas id="viz" class="viz" width="1200" height="220" aria-label="Visualizer"></canvas>
-
-                <div class="music__controls">
-                  <button id="btnPrev" class="iconBtn" type="button" title="Prev">
-                    <i class="fa-solid fa-backward-step"></i>
-                  </button>
-
-                  <button id="btnPlay" class="playBtn" type="button" title="Play/Pause">
-                    <i class="fa-solid fa-play"></i>
-                  </button>
-
-                  <button id="btnNext" class="iconBtn" type="button" title="Next">
-                    <i class="fa-solid fa-forward-step"></i>
-                  </button>
-                </div>
-
-                <div class="bar">
-                  <input id="progress" type="range" min="0" max="1000" value="0" step="1" />
-                </div>
-
-                <audio id="audio" preload="metadata"></audio>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <span>© 2026 INC Legion. All rights reserved.</span>
-      </footer>
-    </main>
-
-    <script src="./script.js"></script>
-  </body>
+  <script src="./script.js"></script>
+</body>
 </html>
