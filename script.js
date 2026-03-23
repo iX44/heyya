@@ -1,5 +1,5 @@
 /* ==========
-  
+  DATA
 ========== */
 const DATA = {
   profile: {
@@ -9,41 +9,41 @@ const DATA = {
   },
 
   skills: [
-    { label: "JS", sub: "JavaScript", icon: "fa-brands fa-js" },
-    { label: "TS", sub: "TypeScript", icon: "fa-solid fa-code" },
-    { label: "Node", sub: "Backend", icon: "fa-brands fa-node-js" },
-    { label: "React", sub: "UI", icon: "fa-brands fa-react" },
-    { label: "Git", sub: "VCS", icon: "fa-brands fa-git-alt" },
-    { label: "Docker", sub: "DevOps", icon: "fa-brands fa-docker" },
+    { label: "JS",     sub: "JavaScript", icon: "fa-brands fa-js" },
+    { label: "TS",     sub: "TypeScript", icon: "fa-solid fa-code" },
+    { label: "Node",   sub: "Backend",    icon: "fa-brands fa-node-js" },
+    { label: "React",  sub: "UI",         icon: "fa-brands fa-react" },
+    { label: "Git",    sub: "VCS",        icon: "fa-brands fa-git-alt" },
+    { label: "Docker", sub: "DevOps",     icon: "fa-brands fa-docker" },
   ],
 
   games: [
     { label: "Valorant", sub: "LFT iX4#3004", icon: "fa-solid fa-crosshairs" },
-    { label: "TFT", sub: "iX4#3004", icon: "fa-solid fa-chess" },
-    { label: "LOL", sub: "iX4#3004", icon: "fa-solid fa-crown" },
-    { label: "CS2", sub: "iXa", icon: "fa-solid fa-bullseye" },
+    { label: "TFT",      sub: "iX4#3004",     icon: "fa-solid fa-chess" },
+    { label: "LOL",      sub: "iX4#3004",     icon: "fa-solid fa-crown" },
+    { label: "CS2",      sub: "iXa",          icon: "fa-solid fa-bullseye" },
   ],
 
   social: [
-    { label: "Facebook", sub: "profile", icon: "fa-brands fa-facebook", href: "https://www.facebook.com/ix4444" },
-    { label: "Instagram", sub: "@ix4", icon: "fa-brands fa-instagram", href: "https://www.instagram.com/hdddanh/" },
-    { label: "GitHub", sub: "@ix4", icon: "fa-brands fa-github", href: "https://github.com/iX44" },
-    { label: "Discord", sub: "server", icon: "fa-brands fa-discord", href: "https://discord.gg/QRuUd8UXbV" },
-    { label: "Spotify", sub: "playlist", icon: "fa-brands fa-spotify", href: "https://open.spotify.com/user/31i65lfz6hceufh55kurta4doe4i?si=8972f504a68d41d1" },
+    { label: "Facebook",  sub: "profile",  icon: "fa-brands fa-facebook",  href: "https://www.facebook.com/ix4444" },
+    { label: "Instagram", sub: "@ix4",     icon: "fa-brands fa-instagram", href: "https://www.instagram.com/hdddanh/" },
+    { label: "GitHub",    sub: "@ix4",     icon: "fa-brands fa-github",    href: "https://github.com/iX44" },
+    { label: "Discord",   sub: "server",   icon: "fa-brands fa-discord",   href: "https://discord.gg/QRuUd8UXbV" },
+    { label: "Spotify",   sub: "playlist", icon: "fa-brands fa-spotify",   href: "https://open.spotify.com/user/31i65lfz6hceufh55kurta4doe4i?si=8972f504a68d41d1" },
   ],
 
   gear: [
-    { k: "CPU", v: "i7 12th" },
-    { k: "GPU", v: "RTX" },
-    { k: "RAM", v: "32GB" },
-    { k: "Mouse", v: "G304" },
+    { k: "CPU",      v: "i7 12th" },
+    { k: "GPU",      v: "RTX" },
+    { k: "RAM",      v: "32GB" },
+    { k: "Mouse",    v: "G304" },
     { k: "Keyboard", v: "Custom" },
-    { k: "Headset", v: "Razer" },
+    { k: "Headset",  v: "Razer" },
   ],
 
   tracks: [
-    { title: "thap drill tu do", artist: "MCK", src: "./assets/music/thapdrilltudo.mp3", cover: "./assets/cover.jpg" },
-    { title: "Nguoi Dau Tien", artist: "iX4", src: "./assets/music/nguoidautien.mp3", cover: "./assets/cover.jpg" },
+    { title: "thap drill tu do", artist: "MCK",  src: "./assets/music/thapdrilltudo.mp3",  cover: "./assets/cover.jpg" },
+    { title: "Nguoi Dau Tien",   artist: "iX4",  src: "./assets/music/nguoidautien.mp3",   cover: "./assets/cover.jpg" },
   ],
 };
 
@@ -81,13 +81,30 @@ function makeTile({ label, sub, icon, href }) {
     el.target = "_blank";
     el.rel = "noreferrer";
   }
-  el.innerHTML = `
-    <div class="iconTile__ic"><i class="${icon}"></i></div>
-    <div>
-      <div class="iconTile__label">${label}</div>
-      <div class="iconTile__sub">${sub ?? ""}</div>
-    </div>
-  `;
+
+  // Safe DOM construction — no innerHTML with user-controlled data
+  const ic = document.createElement("div");
+  ic.className = "iconTile__ic";
+  const i = document.createElement("i");
+  i.className = icon;
+  ic.appendChild(i);
+
+  const info = document.createElement("div");
+
+  const labelEl = document.createElement("div");
+  labelEl.className = "iconTile__label";
+  labelEl.textContent = label;
+
+  const subEl = document.createElement("div");
+  subEl.className = "iconTile__sub";
+  subEl.textContent = sub ?? "";
+
+  info.appendChild(labelEl);
+  info.appendChild(subEl);
+
+  el.appendChild(ic);
+  el.appendChild(info);
+
   return el;
 }
 
@@ -95,11 +112,10 @@ function makeTile({ label, sub, icon, href }) {
   INIT CONTENT
 ========== */
 function initContent() {
-  $("#bioLine").textContent = DATA.profile.bio;
-  $("#locLine").textContent = DATA.profile.location;
-
-  $("#statLikes").textContent = DATA.profile.stats.likes.toLocaleString("en-US");
-  $("#statViews").textContent = DATA.profile.stats.views.toLocaleString("en-US");
+  $("#bioLine").textContent    = DATA.profile.bio;
+  $("#locLine").textContent    = DATA.profile.location;
+  $("#statLikes").textContent  = DATA.profile.stats.likes.toLocaleString("en-US");
+  $("#statViews").textContent  = DATA.profile.stats.views.toLocaleString("en-US");
 
   const skillsGrid = $("#skillsGrid");
   skillsGrid.innerHTML = "";
@@ -117,13 +133,20 @@ function initContent() {
   gearList.innerHTML = "";
   DATA.gear.forEach((row) => {
     const li = document.createElement("li");
-    li.innerHTML = `<span class="k">${row.k}</span><span class="v">${row.v}</span>`;
+    const k  = document.createElement("span");
+    const v  = document.createElement("span");
+    k.className   = "k";
+    v.className   = "v";
+    k.textContent = row.k;
+    v.textContent = row.v;
+    li.appendChild(k);
+    li.appendChild(v);
     gearList.appendChild(li);
   });
 }
 
 /* ==========
-  SUBTLE GLOW TOGGLE
+  GLOW TOGGLE
 ========== */
 function initGlowToggle() {
   $("#btnGlow").addEventListener("click", () => {
@@ -132,36 +155,43 @@ function initGlowToggle() {
 }
 
 /* ==========
-  MUSIC PLAYER (no volume/loop/mute)
+  MUSIC PLAYER
 ========== */
 function initPlayer() {
-  const audio = $("#audio");
-  const viz = $("#viz");
-  const ctx = viz.getContext("2d", { alpha: true });
+  const audio    = $("#audio");
+  const viz      = $("#viz");
+  const ctx      = viz.getContext("2d", { alpha: true });
 
-  const btnPlay = $("#btnPlay");
-  const btnPrev = $("#btnPrev");
-  const btnNext = $("#btnNext");
+  const btnPlay  = $("#btnPlay");
+  const btnPrev  = $("#btnPrev");
+  const btnNext  = $("#btnNext");
 
-  const titleEl = $("#trackTitle");
+  const titleEl  = $("#trackTitle");
   const artistEl = $("#trackArtist");
   const coverImg = $("#coverImg");
 
-  const curTime = $("#curTime");
-  const durTime = $("#durTime");
+  const curTime  = $("#curTime");
+  const durTime  = $("#durTime");
   const progress = $("#progress");
 
-  let idx = 0;
+  let idx       = 0;
   let isSeeking = false;
 
-  let audioCtx = null;
-  let analyser = null;
-  let srcNode = null;
-  let freqData = null;
+  let audioCtx  = null;
+  let analyser  = null;
+  let srcNode   = null;
+  let freqData  = null;
+  let rafId     = null;           // track animation frame so we can stop it
+
+  // Cached viz dimensions — avoids getBoundingClientRect() every frame
+  let vizW = 0;
+  let vizH = 0;
 
   function ensureAudioGraph() {
     if (audioCtx) return;
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    window._audioCtx = audioCtx;   // expose so splash can resume it
+
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 1024;
     analyser.smoothingTimeConstant = 0.86;
@@ -182,9 +212,9 @@ function initPlayer() {
     idx = (i + DATA.tracks.length) % DATA.tracks.length;
     const t = DATA.tracks[idx];
 
-    titleEl.textContent = t.title;
+    titleEl.textContent  = t.title;
     artistEl.textContent = t.artist;
-    coverImg.src = t.cover;
+    coverImg.src         = t.cover;
 
     audio.src = t.src;
     audio.load();
@@ -224,11 +254,12 @@ function initPlayer() {
     }
   });
 
-  progress.addEventListener("input", () => {
-    isSeeking = true;
-    paintRange(progress);
+  // Restart the draw loop when audio plays
+  audio.addEventListener("play", () => {
+    if (!rafId) rafId = requestAnimationFrame(drawViz);
   });
 
+  progress.addEventListener("input",  () => { isSeeking = true; paintRange(progress); });
   progress.addEventListener("change", () => {
     if (Number.isFinite(audio.duration) && audio.duration > 0) {
       audio.currentTime = (Number(progress.value) / 1000) * audio.duration;
@@ -238,61 +269,62 @@ function initPlayer() {
 
   audio.addEventListener("ended", () => loadTrack(idx + 1, true));
 
+  /* --- Visualizer helpers --- */
   function roundRect(c, x, y, w, h, r) {
     const rr = Math.min(r, w / 2, h / 2);
     c.beginPath();
     c.moveTo(x + rr, y);
-    c.arcTo(x + w, y, x + w, y + h, rr);
-    c.arcTo(x + w, y + h, x, y + h, rr);
-    c.arcTo(x, y + h, x, y, rr);
-    c.arcTo(x, y, x + w, y, rr);
+    c.arcTo(x + w, y,     x + w, y + h, rr);
+    c.arcTo(x + w, y + h, x,     y + h, rr);
+    c.arcTo(x,     y + h, x,     y,     rr);
+    c.arcTo(x,     y,     x + w, y,     rr);
     c.closePath();
   }
 
   function resizeViz() {
     const rect = viz.getBoundingClientRect();
-    const dpr = Math.max(1, window.devicePixelRatio || 1);
-    viz.width = Math.floor(rect.width * dpr);
+    const dpr  = Math.max(1, window.devicePixelRatio || 1);
+    viz.width  = Math.floor(rect.width  * dpr);
     viz.height = Math.floor(rect.height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // Cache logical dimensions
+    vizW = rect.width;
+    vizH = rect.height;
   }
 
   function drawViz() {
-    const w = viz.getBoundingClientRect().width;
-    const h = viz.getBoundingClientRect().height;
+    rafId = null;   // clear before deciding whether to reschedule
 
-    ctx.clearRect(0, 0, w, h);
+    ctx.clearRect(0, 0, vizW, vizH);
 
+    // baseline line — always visible
     ctx.globalAlpha = 0.16;
-    ctx.fillStyle = "rgba(255,255,255,1)";
-    ctx.fillRect(0, h - 2, w, 2);
+    ctx.fillStyle   = "rgba(255,255,255,1)";
+    ctx.fillRect(0, vizH - 2, vizW, 2);
     ctx.globalAlpha = 1;
 
-    if (!analyser || !freqData || audio.paused) {
-      requestAnimationFrame(drawViz);
-      return;
-    }
+    // If paused or no analyser, stop the loop — it restarts on "play"
+    if (!analyser || !freqData || audio.paused) return;
 
     analyser.getByteFrequencyData(freqData);
 
-    const bars = 52;
-    const step = Math.floor(freqData.length / bars);
-    const gap = 8;
-    const barW = (w - gap * (bars + 1)) / bars;
+    const bars  = 52;
+    const step  = Math.floor(freqData.length / bars);
+    const gap   = 8;
+    const barW  = (vizW - gap * (bars + 1)) / bars;
 
     ctx.fillStyle = "rgba(255,255,255,0.92)";
 
     for (let i = 0; i < bars; i++) {
-      const v = freqData[i * step] / 255;
-      const barH = Math.max(6, v * (h - 22));
-      const x = gap + i * (barW + gap);
-      const y = h - barH - 8;
-
+      const v    = freqData[i * step] / 255;
+      const barH = Math.max(6, v * (vizH - 22));
+      const x    = gap + i * (barW + gap);
+      const y    = vizH - barH - 8;
       roundRect(ctx, x, y, barW, barH, 10);
       ctx.fill();
     }
 
-    requestAnimationFrame(drawViz);
+    rafId = requestAnimationFrame(drawViz);
   }
 
   window.addEventListener("resize", () => resizeViz());
@@ -300,7 +332,7 @@ function initPlayer() {
   paintRange(progress);
   resizeViz();
   loadTrack(0, false);
-  requestAnimationFrame(drawViz);
+  rafId = requestAnimationFrame(drawViz);
 }
 
 /* ==========
@@ -308,16 +340,16 @@ function initPlayer() {
 ========== */
 function initSnow() {
   const canvas = $("#snow");
-  const ctx = canvas.getContext("2d");
+  const ctx    = canvas.getContext("2d");
 
   const flakes = [];
-  const N = 140;
+  const N      = 140;
 
   function resize() {
-    const dpr = Math.max(1, window.devicePixelRatio || 1);
-    canvas.width = Math.floor(window.innerWidth * dpr);
-    canvas.height = Math.floor(window.innerHeight * dpr);
-    canvas.style.width = `${window.innerWidth}px`;
+    const dpr      = Math.max(1, window.devicePixelRatio || 1);
+    canvas.width   = Math.floor(window.innerWidth  * dpr);
+    canvas.height  = Math.floor(window.innerHeight * dpr);
+    canvas.style.width  = `${window.innerWidth}px`;
     canvas.style.height = `${window.innerHeight}px`;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
@@ -346,8 +378,8 @@ function initSnow() {
       f.x += f.w + Math.sin((f.y / 90) * 0.9) * 0.30;
 
       if (f.y > window.innerHeight + 10) { f.y = -10; f.x = rand(0, window.innerWidth); }
-      if (f.x < -10) f.x = window.innerWidth + 10;
-      if (f.x > window.innerWidth + 10) f.x = -10;
+      if (f.x < -10)                       f.x = window.innerWidth + 10;
+      if (f.x > window.innerWidth + 10)    f.x = -10;
 
       ctx.globalAlpha = f.a;
       ctx.beginPath();
@@ -368,8 +400,42 @@ function initSnow() {
 }
 
 /* ==========
+  SPLASH SCREEN
+  — Blocks page until first click/tap
+  — That click counts as the user gesture browsers need for autoplay
+  ========== */
+function initSplash() {
+  const splash = document.getElementById("splash");
+  if (!splash) return;
+
+  function dismiss() {
+    splash.classList.add("splash--exit");
+
+    // Resume AudioContext (needs a user gesture — this is that gesture)
+    if (window._audioCtx && window._audioCtx.state === "suspended") {
+      window._audioCtx.resume();
+    }
+
+    // Auto-play the first track
+    const audio = document.getElementById("audio");
+    if (audio) {
+      audio.play().catch(() => {});
+    }
+
+    // Remove from DOM after CSS fade finishes
+    splash.addEventListener("transitionend", () => splash.remove(), { once: true });
+  }
+
+  splash.addEventListener("click", dismiss);
+  splash.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") dismiss();
+  });
+}
+
+/* ==========
   BOOT
 ========== */
+initSplash();     // splash first — sets up the entry gate
 initContent();
 initGlowToggle();
 initPlayer();
