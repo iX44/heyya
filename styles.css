@@ -3,15 +3,15 @@
   --bg1:#070818;
   --bg-image: url("./assets/bg.gif");
 
-  --bg-blur: 0px;          /* 0px = không blur */
+  --bg-blur: 0px;
   --bg-bright: .75;
   --bg-saturate: 1.15;
-  
+
   --txt:#eef2ff;
   --muted:rgba(235,240,255,.70);
-  
-  --glass-blur: 01px;
-  
+
+  --glass-blur: 1px;
+
   /* glass */
   --line:rgba(255,255,255,.12);
   --glassA:rgba(255,255,255,.035);
@@ -46,6 +46,95 @@ button, input{ font:inherit; color:inherit; }
   position:relative;
   z-index: 2;
 }
+
+/* =====================
+   SPLASH SCREEN
+   Customize these variables:
+     --splash-bg    : overlay background color/opacity
+     --splash-blur  : backdrop blur strength
+   Or edit the text content directly in index.html
+   ===================== */
+#splash {
+  --splash-bg:   rgba(6, 7, 22, 0.88);
+  --splash-blur: 20px;
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  cursor: pointer;
+  background: var(--splash-bg);
+  backdrop-filter: blur(var(--splash-blur));
+  -webkit-backdrop-filter: blur(var(--splash-blur));
+  user-select: none;
+  opacity: 1;
+  transition: opacity 0.65s cubic-bezier(.4,0,.2,1);
+}
+
+#splash.splash--exit {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Avatar on splash */
+#splash__avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 0 48px rgba(255,0,200,.22), 0 22px 60px rgba(0,0,0,.55);
+  animation: splashPulse 2.8s ease-in-out infinite;
+}
+
+/* Big name text on splash */
+#splash__name {
+  font-family: Sora, "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(52px, 10vw, 96px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #fff;
+  line-height: 1;
+  animation: splashPulse 2.8s ease-in-out infinite;
+}
+
+/* Music badge on splash */
+#splash__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-size: 12px;
+  color: rgba(255,255,255,.75);
+}
+#splash__badge i { color: rgba(130,210,130,.9); }
+
+/* "click anywhere" hint */
+#splash__hint {
+  font-size: 13px;
+  color: rgba(255,255,255,.42);
+  letter-spacing: .5px;
+  animation: splashBlink 1.6s ease-in-out infinite;
+}
+
+@keyframes splashPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .68; }
+}
+@keyframes splashBlink {
+  0%, 100% { opacity: .42; }
+  50%       { opacity: .82; }
+}
+/* end splash */
 
 /* ===== Topbar ===== */
 .topbar{
@@ -108,14 +197,14 @@ button, input{ font:inherit; color:inherit; }
   gap:16px;
 }
 
-/* ===== Glass Card (kính hơn) ===== */
+/* ===== Glass Card ===== */
 .card{
   border-radius: var(--radius);
   border: 1px solid rgba(255,255,255,.12);
   background: linear-gradient(180deg, var(--glassA), var(--glassB));
   box-shadow: var(--shadow);
   position: relative;
-  overflow: hidden; /* giữ bo góc + kính */
+  overflow: hidden;
 }
 
 .card::before{
@@ -130,7 +219,6 @@ button, input{ font:inherit; color:inherit; }
   pointer-events:none;
 }
 
-/* blur layer */
 .card::after{
   content:"";
   position:absolute;
@@ -164,20 +252,17 @@ button, input{ font:inherit; color:inherit; }
   color: var(--muted);
 }
 
-/* ===== PROFILE CARD (FIX overlap + bigger card) ===== */
-/* Card bigger */
+/* ===== Profile Card ===== */
 .card--profile .card__inner{
-  min-height: 480px; /* to hơn để thoáng */
+  min-height: 480px;
 }
 
-/* Reserve space INSIDE profile for absolute avatar */
 .profile{
   position: relative;
   text-align: center;
-  padding-top: 238px; /* = top 22 + avatar 184 + gap ~32 */
+  padding-top: 238px;
 }
 
-/* Avatar absolute inside card (never clipped and never overlaps text) */
 .profile__avatarWrap{
   width: 184px;
   height: 184px;
@@ -194,7 +279,7 @@ button, input{ font:inherit; color:inherit; }
   inset: -68px -86px auto -86px;
   height: 182px;
   filter: blur(30px);
-  opacity: .24; /* glow nhẹ */
+  opacity: .24;
   background:
     radial-gradient(circle at 35% 50%, rgba(255,0,200,.55), transparent 62%),
     radial-gradient(circle at 65% 50%, rgba(120,170,255,.55), transparent 62%);
@@ -374,20 +459,7 @@ button, input{ font:inherit; color:inherit; }
 }
 
 .music__logo{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform: translate(-50%, -50%);
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  display:grid;
-  place-items:center;
-  background: rgba(255,255,255,.22);
-  border:1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 16px 34px rgba(0,0,0,.30);
+  display: none;
 }
 
 .music__meta{ min-width:0; }
@@ -514,7 +586,7 @@ input[type="range"]::-webkit-slider-thumb{
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: transparent;   /* QUAN TRỌNG */
+  background: transparent;
   overflow: hidden;
 }
 .bg__glow,
@@ -523,7 +595,6 @@ input[type="range"]::-webkit-slider-thumb{
   position:absolute;
   z-index: 1;
 }
-/* GIF background layer */
 .bg::before{
   content: "";
   position: absolute;
@@ -534,9 +605,8 @@ input[type="range"]::-webkit-slider-thumb{
     brightness(var(--bg-bright))
     saturate(var(--bg-saturate));
   transform: scale(1.08);
-  opacity: 1;                /* ĐỪNG giảm opacity lúc debug */
-  z-index: 0;               /* QUAN TRỌNG: nằm SAU glow */
-
+  opacity: 1;
+  z-index: 0;
 }
 .bg__glow{
   position:absolute;
@@ -571,11 +641,11 @@ input[type="range"]::-webkit-slider-thumb{
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
 }
 
-/* ===== Snow on TOP of cards ===== */
+/* ===== Snow ===== */
 #snow{
   position:fixed;
   inset:0;
-  z-index: 999;       /* đảm bảo nằm trên card */
+  z-index: 999;
   pointer-events:none;
   opacity:.72;
 }
@@ -583,9 +653,6 @@ input[type="range"]::-webkit-slider-thumb{
 /* ===== Subtle glow toggle ===== */
 body.subtle-glow .card{
   box-shadow: var(--shadow), 0 0 28px rgba(var(--accent), .06);
-}
-.music__logo{
-  display: none;
 }
 
 /* ===== Responsive ===== */
